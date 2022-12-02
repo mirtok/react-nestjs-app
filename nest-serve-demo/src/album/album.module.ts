@@ -20,3 +20,5 @@ import CustomResponse from 'src/utils/response';
 	providers: [AlbumService, CustomResponse],
 })
 export class AlbumModule { }
+
+

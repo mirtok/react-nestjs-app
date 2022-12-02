@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+## 前后端数据交互格式
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###四种常见的 POST 提交数据方式
 
-## Available Scripts
 
-In the project directory, you can run:
+| 值                                | 描述                                                                         |
+| --------------------------------- | ---------------------------------------------------------------------------- |
+| application/x-www-form-urlencoded | 在发送前编码所有字符（默认）                                                 |
+| multipart/form-data               | 不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。                 |
+| application/json                  | 作为请求头告诉服务端消息主体是序列化的JSON字符串。除低版本的IE，基本都支持。 |
+| text/plain                        | 空格转换为 “+” 加号，但不对特殊字符编码。                                    |
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. `application/x-www-form-urlencoded` HTTP中默认的提交数据的方式
+	浏览器的原生 form 表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据。请求类似于下面这样（无关的请求头在本文中都省略掉了）：
+```txt
+title=test&sub%5B%5D=1&sub%5B%5D=2&sub%5B%5D=3
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. `multipart/form-data` 一个常见的 POST 数据提交的方式。我们使用表单上传文件时，必须将 的 enctype设为 multipart/form-data。
 
-### `npm test`
+`注意：以上两种方式：application/x-www-form-urlencoded和multipart/form-data都是浏览器原生支持的。`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. `application/json` 新一代请求格式
+`用来告诉服务端消息主体是序列化的JSON字符串，除了低版本的IE，基本都支持。服务端有处理JSON的函数，使用不会有任何麻烦`
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```json
+{
+	"title":"test",
+	"sub":[1,2,3]
+}
+```

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import CustomResponse from './utils/response';
 
@@ -12,6 +12,11 @@ export class AppController {
 	@Get()
 	public getHello(): string {
 		return this.appService.getHello();
+	}
+
+	@Post("/post")
+	public postSubmit(@Body() createCatDto: any) {
+		return createCatDto
 	}
 
 	@Get("/json")
