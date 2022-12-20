@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { Injector } from "@nestjs/core/injector/injector";
 
 /**
  * 通用返回数据结构
@@ -28,7 +27,7 @@ export default class CustomResponse {
 	 * @param paramURL 请求时的url
 	 * @returns  请求返回的数据对象
 	 */
-	public result<T = unknown>(code: number = 200, message?: string, data?: T, paramURL?: string): IHttpRet<T> {
+	public result<T = unknown>(code: number, message?: string, data?: T, paramURL?: string): IHttpRet<T> {
 		return {
 			code: code,
 			message: message,
