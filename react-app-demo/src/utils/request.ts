@@ -15,6 +15,8 @@ request.interceptors.request.use(
 
 request.interceptors.response.use((response) => {
     return response.data;
+},(err) => {
+    console.log('~~~响应错误~~~');
 });
 
 export default request;
